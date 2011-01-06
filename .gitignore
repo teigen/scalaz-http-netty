@@ -1,0 +1,6 @@
+.idea/
+lib_managed
+project/boot/
+project/build/target
+*.iml
+target/
