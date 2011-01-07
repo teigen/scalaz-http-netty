@@ -6,8 +6,8 @@ import Util.Nel._
 import Scalaz._
 import response.Response
 
-import org.jboss.netty.buffer.{ChannelBufferOutputStream, ChannelBuffers}
-import org.jboss.netty.handler.codec.http.{HttpVersion, HttpMessage, HttpResponse, HttpResponseStatus}
+import org.jboss.netty.handler.codec.http.{HttpMessage, HttpResponse, HttpResponseStatus}
+import org.jboss.netty.buffer.{ChannelBuffers, ChannelBufferOutputStream}
 
 trait HttpNettyResponse {
   val response: HttpMessage with HttpResponse
@@ -15,14 +15,11 @@ trait HttpNettyResponse {
   def respond[OUT[_]](res: Response[OUT])(implicit e: Each[OUT]) {
     response.setStatus(HttpResponseStatus.valueOf(res.line.status.toInt))
 
-    response.setProtocolVersion(HttpVersion.valueOf(res.line.version.asString))
-
     res.headers.foreach { case (h, v) => response.addHeader(h, v.mkString) }
 
-    val channelBuffer = ChannelBuffers.dynamicBuffer
-    val out = new ChannelBufferOutputStream(channelBuffer)
-    response.setContent(channelBuffer)
-
+    val buffer = ChannelBuffers.dynamicBuffer
+    val out = new ChannelBufferOutputStream(buffer)
+    response.setContent(buffer)
     e.each[Byte](res.body, out.write(_))
   }
 }
