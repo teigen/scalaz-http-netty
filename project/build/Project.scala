@@ -6,7 +6,7 @@ class Project(info:ProjectInfo) extends DefaultProject(info) {
 
   /* module configurations */
   val nettyModuleConf = ModuleConfiguration("org.jboss.netty", JBossRepo)
-  val scalazModuleConf = ModuleConfiguration("com.googlecode.scalaz", ScalaToolsSnapshots)
+  val scalazModuleConf = ModuleConfiguration("org.scalaz", ScalaToolsSnapshots)
 
   /* dependencies */
   val netty = "org.jboss.netty" % "netty" % "3.2.3.Final" withSources()
