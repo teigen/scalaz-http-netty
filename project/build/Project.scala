@@ -10,6 +10,6 @@ class Project(info:ProjectInfo) extends DefaultProject(info) {
 
   /* dependencies */
   val netty = "org.jboss.netty" % "netty" % "3.2.3.Final" withSources()
-  val scalaz_core = "com.googlecode.scalaz" %% "scalaz-core" % "5.1-SNAPSHOT" withSources()
-  val scalaz_http = "com.googlecode.scalaz" %% "scalaz-http" % "5.1-SNAPSHOT" withSources()
+  val scalaz_core = "org.scalaz" %% "scalaz-core" % "6.0-SNAPSHOT" withSources()
+  val scalaz_http = "org.scalaz" %% "scalaz-http" % "6.0-SNAPSHOT" withSources()
 }
